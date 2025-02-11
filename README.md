@@ -1,3 +1,13 @@
+## **Configurar Deploy a GitHub Pages**
+
+El comando automáticamente construye el proyecto en Vite y lo despliega a GitHub Pages
+en la rama [`gh-pages`](https://github.com/Aristides-19/simon-says/tree/gh-pages)
+permitiendo utilizar ES Modules en el desarrollo.
+
+```bash
+npm run deploy
+```
+
 ## **Configurar ESLint y Prettier**
 
 1. **Instala las extensiones de VS Code:**

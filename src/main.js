@@ -1,10 +1,33 @@
-import simonLogo from '/ico.png';
+import simon from './assets/simon.png';
 import './style.css';
 
-document.getElementById('app').innerHTML = `
-  <div>
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" title="Simon Logo">
-      <img src="${simonLogo}"/>
-    </a>
+const appDiv = document.getElementById('app');
+
+function showStartScreen() {
+  appDiv.innerHTML = `
+  <img src="${simon}" height=15% title="Simóncito"/>
+  <h1>Simón Dice</h1>
+  <button type="button" class='menu-button' id='play-button'>Jugar</button>
+  <button type="button" class='menu-button'>Clasificación</button>`;
+
+  document.getElementById('play-button').addEventListener('click', startGame);
+}
+
+function startGame() {
+  const name = prompt(
+    'El juego está a punto de comenzar, introduce tu nombre de jugador:',
+    'Simón'
+  );
+  appDiv.innerHTML = `
+  <h1>Simon Dice ${name}</h1>
+  <div id="buttons">
+    <button class="simon-button" id="red"></button>
+    <button class="simon-button" id="blue"></button>
+    <button class="simon-button" id="green"></button>
+    <button class="simon-button" id="yellow"></button>
   </div>
+  <p id="message">¡Comienza el juego!</p>
 `;
+}
+
+showStartScreen();
