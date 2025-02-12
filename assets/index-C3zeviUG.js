@@ -5,11 +5,11 @@
   <button type="button" class='menu-button'>Clasificación</button>`,document.getElementById("play-button").addEventListener("click",a)}function a(){const i=prompt("El juego está a punto de comenzar, introduce tu nombre de jugador:","Simón");u.innerHTML=`
   <img src="${r}" height=15% title="Simóncito"/>
   <h1>Simón Dice ${i}</h1>
+  <h2>Puntuación: 0</h2>
   <div id="buttons">
     <button type="button" class="simon-button" id="pink"></button>
     <button type="button" class="simon-button" id="blue"></button>
     <button type="button" class="simon-button" id="green"></button>
     <button type="button" class="simon-button" id="yellow"></button>
   </div>
-  <p id="message">¡Comienza el juego!</p>
-`}l();
+  <p id="message">¡Comienza el juego!</p>`}l();
