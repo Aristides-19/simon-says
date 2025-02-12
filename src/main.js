@@ -3,6 +3,10 @@ import './style.css';
 
 const appDiv = document.getElementById('app');
 
+let sequence = [];
+let userSequence = [];
+let points = 0;
+
 function showStartScreen() {
   appDiv.innerHTML = `
   <img src="${simon}" height=15% title="Simóncito"/>
@@ -27,7 +31,7 @@ function setGame() {
   appDiv.innerHTML = `
   <img src="${simon}" height=15% title="Simóncito"/>
   <h1>Simón Dice ${name}</h1>
-  <h2 id="score">Puntuación: 0</h2>
+  <h2 id="score">Puntuación: ${points}</h2>
   <div id="buttons">
     <button type="button" class="simon-button" id="pink"></button>
     <button type="button" class="simon-button" id="blue"></button>
@@ -45,9 +49,9 @@ function setGame() {
 }
 
 function startGame() {
-  const sequence = [getRandomInt(0, 3)];
-  console.log(sequence);
-  showSequence(sequence);
+  sequence = [getRandomInt(0, 3)];
+  console.log();
+  showSequence();
 }
 
 function getRandomInt(min, max) {
@@ -56,7 +60,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function showSequence(sequence) {
+function showSequence() {
   const buttons = ['pink', 'blue', 'green', 'yellow'];
   sequence.forEach((number, index) => {
     setTimeout(() => {
@@ -69,5 +73,29 @@ function showSequence(sequence) {
     }, index * 1500); // Intervalo entre cada botón
   });
 }
+
+var count = 0;
+
+document.querySelectorAll("simon-button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const color = e.target.dataset.color;
+    
+    // Verificar si coincide con la secuencia
+    if (color !== buttons[sequence[count]]) {
+        
+    }
+    
+    // Avanzar de ronda si completa la secuencia
+    if (count+1 == sequence.length()) {
+        //await new Promise(resolve => setTimeout(resolve, 1000));
+        points+=1;
+        sequence.push(getRandomInt(0, 3));
+        count = -1;
+        showSequence(sequence);
+    }
+    
+    count+=1; 
+  });
+});
 
 showStartScreen();
