@@ -83,7 +83,8 @@ p {
   border-radius: 320px 20px 20px 20px;
   background-color: var(--pink);
 }
-#pink:active {
+#pink:active,
+.active-pink {
   box-shadow: 0 0 20px 10px var(--pink);
 }
 
@@ -91,7 +92,8 @@ p {
   border-radius: 20px 320px 20px 20px;
   background-color: var(--blue);
 }
-#blue:active {
+#blue:active,
+.active-blue {
   box-shadow: 0 0 20px 10px var(--blue);
 }
 
@@ -99,7 +101,8 @@ p {
   border-radius: 20px 20px 20px 320px;
   background-color: var(--green);
 }
-#green:active {
+#green:active,
+.active-green {
   box-shadow: 0 0 20px 10px var(--green);
 }
 
@@ -107,7 +110,7 @@ p {
   border-radius: 20px 20px 320px 20px;
   background-color: var(--yellow);
 }
-#yellow:active {
+#yellow:active,
+.active-yellow {
   box-shadow: 0 0 20px 10px var(--yellow);
 }
-
