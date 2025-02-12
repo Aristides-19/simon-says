@@ -19,12 +19,13 @@ function startGame() {
     'Simón'
   );
   appDiv.innerHTML = `
-  <h1>Simon Dice ${name}</h1>
+  <img src="${simon}" height=15% title="Simóncito"/>
+  <h1>Simón Dice ${name}</h1>
   <div id="buttons">
-    <button class="simon-button" id="red"></button>
-    <button class="simon-button" id="blue"></button>
-    <button class="simon-button" id="green"></button>
-    <button class="simon-button" id="yellow"></button>
+    <button type="button" class="simon-button" id="pink"></button>
+    <button type="button" class="simon-button" id="blue"></button>
+    <button type="button" class="simon-button" id="green"></button>
+    <button type="button" class="simon-button" id="yellow"></button>
   </div>
   <p id="message">¡Comienza el juego!</p>
 `;
