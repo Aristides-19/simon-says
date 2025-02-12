@@ -18,6 +18,11 @@ h1 {
   margin-bottom: 1.9vh;
 }
 
+h2 {
+  font-size: 150%;
+  margin: 0;
+}
+
 p {
   font-size: 115%;
   margin: 0;
@@ -105,3 +110,4 @@ p {
 #yellow:active {
   box-shadow: 0 0 20px 10px var(--yellow);
 }
+
