@@ -52,6 +52,7 @@ function startGame() {
   sequence = [getRandomInt(0, 3)];
   console.log();
   showSequence();
+  initPlayerTurn();
 }
 
 function getRandomInt(min, max) {
@@ -74,28 +75,33 @@ function showSequence() {
   });
 }
 
-var count = 0;
+// Habilita la interacción del jugador
+function initPlayerTurn() {
+  document.querySelectorAll(".simon-button").forEach(btn => {
+      btn.addEventListener("click", gameManager, { once: true });
+  });
+}
 
-document.querySelectorAll("simon-button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const color = e.target.dataset.color;
+function gameManager(input){
+  var count = 0;
+
+    const color = input.target.dataset.color;
     
     // Verificar si coincide con la secuencia
-    if (color !== buttons[sequence[count]]) {
+    /*if (color !== buttons[sequence[count]]) {
         
-    }
-    
-    // Avanzar de ronda si completa la secuencia
-    if (count+1 == sequence.length()) {
-        //await new Promise(resolve => setTimeout(resolve, 1000));
-        points+=1;
-        sequence.push(getRandomInt(0, 3));
-        count = -1;
-        showSequence(sequence);
-    }
+    }*/
     
     count+=1; 
-  });
-});
+    // Avanzar de ronda si completa la secuencia
+    if (count === sequence.length) {
+        points+=1;
+        sequence.push(getRandomInt(0, 3));
+        count = 0;
+        showSequence(sequence);
+    }
+
+    initPlayerTurn();
+}
 
 showStartScreen();
