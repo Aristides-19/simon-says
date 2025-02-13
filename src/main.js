@@ -7,9 +7,10 @@ import './style.css';
 
 const appDiv = document.getElementById('app');
 
+const buttons = ['pink', 'blue', 'green', 'yellow'];
 let sequence = [];
-let userSequence = [];
 let points = 0;
+let count = 0;
 
 function showStartScreen() {
   appDiv.innerHTML = `
@@ -68,7 +69,6 @@ function setGame() {
 
 function startGame() {
   sequence = [getRandomInt(0, 3)];
-  console.log();
   showSequence();
   initPlayerTurn();
 }
@@ -80,12 +80,10 @@ function getRandomInt(min, max) {
 }
 
 function showSequence() {
-  const buttons = ['pink', 'blue', 'green', 'yellow'];
   sequence.forEach((number, index) => {
     setTimeout(() => {
       const button = document.getElementById(buttons[number]);
       button.classList.add('active-' + buttons[number]);
-      button.click();
 
       setTimeout(() => {
         button.classList.remove('active-' + buttons[number]);
@@ -97,30 +95,25 @@ function showSequence() {
 // Habilita la interacción del jugador
 function initPlayerTurn() {
   document.querySelectorAll('.simon-button').forEach((btn) => {
-    btn.addEventListener('click', gameManager, { once: true });
+    btn.addEventListener('click', gameManager);
   });
 }
 
 function gameManager(input) {
-  var count = 0;
-
-  const color = input.target.dataset.color;
+  const color = input.target.id;
 
   // Verificar si coincide con la secuencia
-  /*if (color !== buttons[sequence[count]]) {
-        
-    }*/
+  if (color === buttons[sequence[count]]) {
+    count ++;
 
-  count += 1;
-  // Avanzar de ronda si completa la secuencia
-  if (count === sequence.length) {
-    points += 1;
-    sequence.push(getRandomInt(0, 3));
-    count = 0;
-    showSequence(sequence);
+    // Avanzar de ronda si completa la secuencia
+    if (count === sequence.length) {
+      points ++;
+      sequence.push(getRandomInt(0, 3));
+      count = 0;
+      showSequence(sequence);
+    }
   }
-
-  initPlayerTurn();
 }
 
 showStartScreen();
