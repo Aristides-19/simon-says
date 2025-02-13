@@ -1,4 +1,8 @@
 import simon from './assets/simon.png';
+import blueSound from './assets/blue.ogg';
+import pinkSound from './assets/pink.ogg';
+import greenSound from './assets/green.ogg';
+import yellowSound from './assets/yellow.ogg';
 import './style.css';
 
 const appDiv = document.getElementById('app');
@@ -37,8 +41,22 @@ function setGame() {
     <button type="button" class="simon-button" id="blue"></button>
     <button type="button" class="simon-button" id="green"></button>
     <button type="button" class="simon-button" id="yellow"></button>
+    <audio id="pink-sound" src="${pinkSound}"></audio>
+    <audio id="green-sound" src="${greenSound}"></audio>
+    <audio id="yellow-sound" src="${yellowSound}"></audio>
+    <audio id="blue-sound" src="${blueSound}"></audio>
   </div>
   <p id="message">¡Comienza el juego!</p>`;
+
+  function addSoundToButton(buttonId) {
+    document.getElementById(buttonId).addEventListener('click', () => {
+      document.getElementById(buttonId + '-sound').play();
+    });
+  }
+  addSoundToButton('pink');
+  addSoundToButton('blue');
+  addSoundToButton('green');
+  addSoundToButton('yellow');
 
   setTimeout(() => {
     alert(
@@ -67,6 +85,7 @@ function showSequence() {
     setTimeout(() => {
       const button = document.getElementById(buttons[number]);
       button.classList.add('active-' + buttons[number]);
+      button.click();
 
       setTimeout(() => {
         button.classList.remove('active-' + buttons[number]);
@@ -77,31 +96,31 @@ function showSequence() {
 
 // Habilita la interacción del jugador
 function initPlayerTurn() {
-  document.querySelectorAll(".simon-button").forEach(btn => {
-      btn.addEventListener("click", gameManager, { once: true });
+  document.querySelectorAll('.simon-button').forEach((btn) => {
+    btn.addEventListener('click', gameManager, { once: true });
   });
 }
 
-function gameManager(input){
+function gameManager(input) {
   var count = 0;
 
-    const color = input.target.dataset.color;
-    
-    // Verificar si coincide con la secuencia
-    /*if (color !== buttons[sequence[count]]) {
+  const color = input.target.dataset.color;
+
+  // Verificar si coincide con la secuencia
+  /*if (color !== buttons[sequence[count]]) {
         
     }*/
-    
-    count+=1; 
-    // Avanzar de ronda si completa la secuencia
-    if (count === sequence.length) {
-        points+=1;
-        sequence.push(getRandomInt(0, 3));
-        count = 0;
-        showSequence(sequence);
-    }
 
-    initPlayerTurn();
+  count += 1;
+  // Avanzar de ronda si completa la secuencia
+  if (count === sequence.length) {
+    points += 1;
+    sequence.push(getRandomInt(0, 3));
+    count = 0;
+    showSequence(sequence);
+  }
+
+  initPlayerTurn();
 }
 
 showStartScreen();
