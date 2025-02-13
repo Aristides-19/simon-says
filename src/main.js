@@ -111,7 +111,9 @@ function gameManager(input) {
       points ++;
       sequence.push(getRandomInt(0, 3));
       count = 0;
-      showSequence(sequence);
+      setTimeout(() => {
+        showSequence();
+      }, 1000);
     }
   }
 }
