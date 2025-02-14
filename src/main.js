@@ -11,6 +11,7 @@ const buttons = ['pink', 'blue', 'green', 'yellow'];
 let sequence = [];
 let points = 0;
 let count = 0;
+let name = "";
 
 function showStartScreen() {
   appDiv.innerHTML = `
@@ -23,7 +24,7 @@ function showStartScreen() {
 }
 
 function setGame() {
-  var name = prompt(
+  name = prompt(
     'El juego está a punto de comenzar, introduce tu nombre de jugador:',
     'Simón'
   );
@@ -129,7 +130,16 @@ function gameManager(input) {
         showSequence();
       }, 1000);
     }
+  }else{
+    gameOver();
   }
+}
+
+function gameOver(){
+  appDiv.innerHTML = `
+  <img src="${simon}" height=15% title="Simóncito"/>
+  <h1>Simón Dice</h1>
+  <h2>Perdiste</h2>`;
 }
 
 showStartScreen();
