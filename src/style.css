@@ -27,11 +27,20 @@ h2 {
   align-self: center;
 }
 
-p {
+p,
+ol {
   font-size: 115%;
   margin: 0;
   text-align: center;
   align-self: center;
+}
+
+ol li::marker {
+  font-weight: bold;
+}
+
+ol li {
+  margin-bottom: 4px;
 }
 
 /* Main Container*/
@@ -47,6 +56,7 @@ p {
 /* Menu Buttons */
 .menu-button {
   background-color: transparent;
+  color: var(--black);
   padding: 15px;
   text-align: center;
   border-radius: 50px;
@@ -80,6 +90,8 @@ p {
 
 .simon-button {
   cursor: pointer;
+  border-style: outset;
+  border-color: var(--black);
 }
 .simon-button:active {
   transform: scale(1.05);

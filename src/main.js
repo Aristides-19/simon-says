@@ -22,13 +22,14 @@ function showStartScreen() {
   <button type="button" class='menu-button' id='score-button'>Clasificación</button>
   <audio id="menu-sound" src="${menuSound}"></audio>`;
 
-  document.querySelectorAll('.menu-button').forEach((btn) =>
-    btn.addEventListener('click', () => {
-      document.getElementById('menu-sound').play();
-    })
-  );
-  document.getElementById('play-button').addEventListener('click', setGame);
-  document.getElementById('score-button').addEventListener('click', () => {});
+  document.getElementById('play-button').addEventListener('click', () => {
+    document.getElementById('menu-sound').play();
+    setGame();
+  });
+  document.getElementById('score-button').addEventListener('click', () => {
+    document.getElementById('menu-sound').play();
+    setTimeout(setClasification, 100);
+  });
 }
 
 function setGame() {
@@ -95,7 +96,7 @@ function showSequence() {
     }, index * 1300); // Intervalo entre cada botón
   });
 
-  const totalDuration = (sequence.length - 1) * 1500 + 1000;
+  const totalDuration = (sequence.length - 1) * 1300 + 1000;
 
   setTimeout(() => {
     enableButtons();
@@ -132,7 +133,7 @@ function gameManager(input) {
       count = 0;
       setTimeout(() => {
         showSequence();
-      }, 1000);
+      }, 1300);
     }
   } else {
     alert('¡Te equivocaste!');
@@ -154,13 +155,41 @@ function gameOver() {
   score = 0;
   sequence = [];
 
-  document.querySelectorAll('.menu-button').forEach((btn) =>
-    btn.addEventListener('click', () => {
-      document.getElementById('menu-sound').play();
-    })
-  );
-  document.getElementById('restart-button').addEventListener('click', setGame);
-  document.getElementById('back-button').addEventListener('click', showStartScreen);
+  document.getElementById('restart-button').addEventListener('click', () => {
+    document.getElementById('menu-sound').play();
+    setTimeout(setGame, 100);
+  });
+  document.getElementById('back-button').addEventListener('click', () => {
+    document.getElementById('menu-sound').play();
+    setTimeout(showStartScreen, 100);
+  });
+}
+
+function setClasification() {
+  appDiv.innerHTML = `
+    <img src="${simon}" height=15% title="Simóncito"/>
+    <h1>Simón Dice</h1>
+    <h2>Clasificación</h2>
+    <ol style="text-align: left" id="clasf"></ol>
+    <button type="button" class='menu-button' id='back-button'>Volver al Menú</button>
+    <audio id="menu-sound" src="${menuSound}"></audio>`;
+
+  document.getElementById('back-button').addEventListener('click', () => {
+    document.getElementById('menu-sound').play();
+    setTimeout(showStartScreen, 100);
+  });
+
+  const clasf = document.getElementById('clasf');
+  const localStorageItems = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+    localStorageItems.push({ key: key, value: value });
+  }
+  localStorageItems.sort((a, b) => b.value.localeCompare(a.value));
+  localStorageItems.forEach((item) => {
+    clasf.innerHTML += `<li>${item.key} : <u>${item.value}</u></li>`;
+  });
 }
 
 showStartScreen();
