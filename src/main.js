@@ -13,6 +13,7 @@ let sequence = [];
 let score = 0;
 let count = 0;
 let name = '';
+let message = '';
 
 function showStartScreen() {
   appDiv.innerHTML = `
@@ -142,15 +143,24 @@ function gameManager(input) {
 }
 
 function gameOver() {
+  if (score > localStorage.getItem(name)){
+    localStorage.setItem(name, score);
+    message = '¡Felicidades! Nuevo Record'
+  }else{
+    message = 'Mejor suerte la próxima'
+  }
+
   appDiv.innerHTML = `
   <img src="${simon}" height=15% title="Simóncito"/>
   <h1>Simón Dice</h1>
+  <h1>${message}</h1>
   <h2>Juego Terminado</h2>
+  <h2>Puntaje: ${score}</h2>
+  <h2>Mejor Puntaje: ${localStorage.getItem(name)}</h2>
   <button type="button" class='menu-button' id='restart-button' style='margin-top: 10px'>Reiniciar</button>
   <button type="button" class='menu-button' id='back-button'>Volver al Menú</button>
   <audio id="menu-sound" src="${menuSound}"></audio>`;
 
-  localStorage.setItem(name, score);
   count = 0;
   score = 0;
   sequence = [];
