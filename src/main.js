@@ -139,7 +139,12 @@ function gameOver(){
   appDiv.innerHTML = `
   <img src="${simon}" height=15% title="Simóncito"/>
   <h1>Simón Dice</h1>
-  <h2>Perdiste</h2>`;
+  <h2>Juego Terminado</h2>
+  <button type="button" class='menu-button' id='restart-button'>Reiniciar</button>
+  <button type="button" class='menu-button' id='menu-button'>Menu</button>`;
+
+  document.getElementById('restart-button').addEventListener('click', setGame);
+  document.getElementById('menu-button').addEventListener('click', showStartScreen);
 }
 
 showStartScreen();
