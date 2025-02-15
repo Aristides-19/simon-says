@@ -18,9 +18,10 @@ function showStartScreen() {
   <img src="${simon}" height=15% title="Simóncito"/>
   <h1>Simón Dice</h1>
   <button type="button" class='menu-button' id='play-button'>Jugar</button>
-  <button type="button" class='menu-button'>Clasificación</button>`;
+  <button type="button" class='menu-button' id='score-button'>Clasificación</button>`;
 
   document.getElementById('play-button').addEventListener('click', setGame);
+  document.getElementById('score-button').addEventListener('click', setGame);
 }
 
 function setGame() {
@@ -70,6 +71,7 @@ function setGame() {
 
 function startGame() {
   sequence = [getRandomInt(0, 3)];
+  points = 0;
   showSequence();
 }
 
