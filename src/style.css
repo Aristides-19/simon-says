@@ -16,16 +16,22 @@ h1 {
   font-size: 200%;
   margin: 0;
   margin-bottom: 1.9vh;
+  text-align: center;
+  align-self: center;
 }
 
 h2 {
   font-size: 150%;
   margin: 0;
+  text-align: center;
+  align-self: center;
 }
 
 p {
   font-size: 115%;
   margin: 0;
+  text-align: center;
+  align-self: center;
 }
 
 /* Main Container*/

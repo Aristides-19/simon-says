@@ -28,7 +28,7 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      'prettier/prettier': ['error', { endOfLine: 'auto' }], // Marca errores si el código no sigue las reglas de Prettier
+      'prettier/prettier': ['error', { endOfLine: 'auto', printWidth: 100 }], // Marca errores si el código no sigue las reglas de Prettier
     },
   },
 ];

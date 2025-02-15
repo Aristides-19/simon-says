@@ -3,32 +3,36 @@ import blueSound from './assets/blue.ogg';
 import pinkSound from './assets/pink.ogg';
 import greenSound from './assets/green.ogg';
 import yellowSound from './assets/yellow.ogg';
+import menuSound from './assets/menu.mp3';
 import './style.css';
 
 const appDiv = document.getElementById('app');
 
 const buttons = ['pink', 'blue', 'green', 'yellow'];
 let sequence = [];
-let points = 0;
+let score = 0;
 let count = 0;
-let name = "";
+let name = '';
 
 function showStartScreen() {
   appDiv.innerHTML = `
   <img src="${simon}" height=15% title="Simóncito"/>
   <h1>Simón Dice</h1>
   <button type="button" class='menu-button' id='play-button'>Jugar</button>
-  <button type="button" class='menu-button' id='score-button'>Clasificación</button>`;
+  <button type="button" class='menu-button' id='score-button'>Clasificación</button>
+  <audio id="menu-sound" src="${menuSound}"></audio>`;
 
+  document.querySelectorAll('.menu-button').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      document.getElementById('menu-sound').play();
+    })
+  );
   document.getElementById('play-button').addEventListener('click', setGame);
-  document.getElementById('score-button').addEventListener('click', setGame);
+  document.getElementById('score-button').addEventListener('click', () => {});
 }
 
 function setGame() {
-  name = prompt(
-    'El juego está a punto de comenzar, introduce tu nombre de jugador:',
-    'Simón'
-  );
+  name = prompt('El juego está a punto de comenzar, introduce tu nombre de jugador:', 'Simón');
 
   if (name === null) {
     showStartScreen();
@@ -38,7 +42,7 @@ function setGame() {
   appDiv.innerHTML = `
   <img src="${simon}" height=15% title="Simóncito"/>
   <h1>Simón Dice ${name}</h1>
-  <h2 id="score">Puntuación: ${points}</h2>
+  <h2 id="score">Puntuación: ${score}</h2>
   <div id="buttons">
     <button type="button" class="simon-button" id="pink"></button>
     <button type="button" class="simon-button" id="blue"></button>
@@ -62,16 +66,14 @@ function setGame() {
   addSoundToButton('yellow');
 
   setTimeout(() => {
-    alert(
-      'El juego está a punto de comenzar, presiona el botón para continuar'
-    );
+    alert('El juego está a punto de comenzar, presiona el botón para continuar');
     startGame();
   }, 100);
 }
 
 function startGame() {
   sequence = [getRandomInt(0, 3)];
-  points = 0;
+  score = 0;
   showSequence();
 }
 
@@ -86,11 +88,11 @@ function showSequence() {
     setTimeout(() => {
       const button = document.getElementById(buttons[number]);
       button.classList.add('active-' + buttons[number]);
-
+      document.getElementById(buttons[number] + '-sound').play();
       setTimeout(() => {
         button.classList.remove('active-' + buttons[number]);
       }, 1000); // Duración del estado activo
-    }, index * 1500); // Intervalo entre cada botón
+    }, index * 1300); // Intervalo entre cada botón
   });
 
   const totalDuration = (sequence.length - 1) * 1500 + 1000;
@@ -124,29 +126,41 @@ function gameManager(input) {
     // Avanzar de ronda si completa la secuencia
     if (count === sequence.length) {
       disableButtons();
-      points++;
-      document.getElementById('score').innerText = 'Puntuación: ' + points;
+      score++;
+      document.getElementById('score').innerText = 'Puntuación: ' + score;
       sequence.push(getRandomInt(0, 3));
       count = 0;
       setTimeout(() => {
         showSequence();
       }, 1000);
     }
-  }else{
+  } else {
+    alert('¡Te equivocaste!');
     gameOver();
   }
 }
 
-function gameOver(){
+function gameOver() {
   appDiv.innerHTML = `
   <img src="${simon}" height=15% title="Simóncito"/>
   <h1>Simón Dice</h1>
   <h2>Juego Terminado</h2>
-  <button type="button" class='menu-button' id='restart-button'>Reiniciar</button>
-  <button type="button" class='menu-button' id='menu-button'>Menu</button>`;
+  <button type="button" class='menu-button' id='restart-button' style='margin-top: 10px'>Reiniciar</button>
+  <button type="button" class='menu-button' id='back-button'>Volver al Menú</button>
+  <audio id="menu-sound" src="${menuSound}"></audio>`;
 
+  localStorage.setItem(name, score);
+  count = 0;
+  score = 0;
+  sequence = [];
+
+  document.querySelectorAll('.menu-button').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      document.getElementById('menu-sound').play();
+    })
+  );
   document.getElementById('restart-button').addEventListener('click', setGame);
-  document.getElementById('menu-button').addEventListener('click', showStartScreen);
+  document.getElementById('back-button').addEventListener('click', showStartScreen);
 }
 
 showStartScreen();
