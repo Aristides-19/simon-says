@@ -14,6 +14,7 @@ let score = 0;
 let count = 0;
 let name = '';
 let message = '';
+let bestScore = 0;
 
 function showStartScreen() {
   appDiv.innerHTML = `
@@ -143,8 +144,15 @@ function gameManager(input) {
 }
 
 function gameOver() {
-  if (score > localStorage.getItem(name)){
+  bestScore = localStorage.getItem(name);
+
+  if (bestScore == null){
+    bestScore = 0;
     localStorage.setItem(name, score);
+  }
+  if (score > bestScore){
+    localStorage.setItem(name, score);
+    bestScore = score;
     message = '¡Felicidades! Nuevo Record'
   }else{
     message = 'Mejor suerte la próxima'
@@ -156,7 +164,7 @@ function gameOver() {
   <h1>${message}</h1>
   <h2>Juego Terminado</h2>
   <h2>Puntaje: ${score}</h2>
-  <h2>Mejor Puntaje: ${localStorage.getItem(name)}</h2>
+  <h2>Mejor Puntaje: ${bestScore}</h2>
   <button type="button" class='menu-button' id='restart-button' style='margin-top: 10px'>Reiniciar</button>
   <button type="button" class='menu-button' id='back-button'>Volver al Menú</button>
   <audio id="menu-sound" src="${menuSound}"></audio>`;
